@@ -1,19 +1,36 @@
-/* Cajero Automatico
-   - Agregar Saldo: NO Saldo Negativo 
-   - Remover Saldo: NO Remover saldo no disponible
-   - Mostrar Saldo
-   - Mostrar Operaciones
+/* cuenta Automatico
+   - [ok] Agregar Saldo: NO Saldo Negativo 
+   - [ok] Remover Saldo: NO Remover saldo no disponible
+   - [ok] Mostrar Saldo
+   - [ok] Mostrar Operaciones
 
-   - Agrege el nombre del titular de la cuenta
+   - [ok] Agrege el nombre del titular de la cuenta
    - Historial registre intentos fallidos
    - Simule usuario y contraseña
+   - Tranferencias entre cuentas
+   - Pagos de Servicios Publicos
+   - (Opcional): Agregar una tercera entidad
 */
 
-class Cajero {
-    saldo = 0;
-    historial = [];
 
-    constructor( saldo = 0 ) {
+class Cliente {
+    id;         // C.C.
+    username;   // alias/nickname
+    name;       // Nombre Real
+    password;   // Contrasenia
+
+    constructor( id, username, name, password ) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
+}
+
+class Cuenta {
+
+    constructor( cliente, saldo = 0 ) {
+        this.cliente = cliente;
         this.saldo = saldo;
         this.historial = [{ operacion: 'Crea cuenta', saldo: this.saldo }];
     }
@@ -54,17 +71,24 @@ class Cajero {
 }
 
 /** Implementacion */
-const cajero = new Cajero( 1200 );
-cajero.consignar( 200 );
-cajero.retirar( 100 );
-cajero.retirar( 190 );
-cajero.retirar( 50 );
-cajero.consignar( 100 );
-cajero.mostrar();
+const clienteAna = new Cliente( 2312324, 'amapola', 'Ana Maria', 'holasoyana');
+const clienteDaniela = new Cliente( 1233223, 'danny', 'Daniela', 'holasoydaniela');
 
-console.log( cajero );
+const cuentaAna = new Cuenta( clienteAna, 1200 );
+const cuentaDaniela = new Cuenta( clienteDaniela );
+console.log( cuentaAna );
+console.log( cuentaDaniela );
 
-const historial = cajero.operaciones();
-console.log( historial );
+// cuenta.consignar( 200 );
+// cuenta.retirar( 100 );
+// cuenta.retirar( 190 );
+// cuenta.retirar( 50 );
+// cuenta.consignar( 100 );
+// cuenta.mostrar();
+
+// console.log( cuenta );
+
+// const historial = cuenta.operaciones();
+// console.log( historial );
 
 
