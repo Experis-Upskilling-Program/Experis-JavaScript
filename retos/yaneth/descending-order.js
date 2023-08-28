@@ -7,28 +7,35 @@
 // Input: 145263 Output: 654321
 // Input: 123456789 Output: 987654321
 
-
+// Funciones validadoras
 const isGreaterThan = ( number1, number2 ) => number1 < number2;
 const isLessThan = ( number1, number2 ) => number1 > number2;
 
-const getMajor = ( numberList ) => {
-    let major = numberList[ 0 ];                       // Obtenemos primer numero de la lista
+// Refactoring de 'getMajor' para que haga uso de un 'CallBack'
+const getNumber = ( numberList, cb ) => {
+    let sample = numberList[ 0 ];                       // Obtenemos primer numero de la lista
 
-    // Iteramos lista para obtener el mayor
-    for ( let i = 0; i < numberList.length; i++ ) {
-        if( isGreaterThan( major, numberList[ i ] ) ) {
-            major = numberList[ i ];
-        }
-    }
-    console.log( `${ major } es el mayor de ${ numberList.join( '' ) }` );
+    for ( let i = 0; i < numberList.length; i++ )
+        if( cb( sample, numberList[ i ] ) )
+            sample = numberList[ i ];
 
-    return major;
+    console.log( `${ sample } - ${ numberList.join( '' ) }` );
+
+    return sample;
 }
 
+// Endpoint Descending Order
 function descendingOrder( n ) {
     const numberList = n.toString().split( '' );        // Lista de numeros                  
 
-    return getMajor( numberList );
+    return getNumber( numberList, isGreaterThan );
+}
+
+// Endpoint Ascending Order
+function ascendingOrder( n ) {
+    const numberList = n.toString().split( '' );        // Lista de numeros                  
+
+    return getNumber( numberList, isLessThan )
 }
 
 // Implementacion
@@ -38,6 +45,12 @@ const numberList = [
     123456789 
 ];
 
+console.log( '# Mayor del string' );
 numberList.forEach( number => {
     descendingOrder( number );
+});
+
+console.log( '# Menor del string' );
+numberList.forEach( number => {
+    ascendingOrder( number );
 });
