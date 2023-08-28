@@ -10,6 +10,7 @@
 // Funciones validadoras
 const isGreaterThan = ( number1, number2 ) => number1 < number2;
 const isLessThan = ( number1, number2 ) => number1 > number2;
+const isValid = ( number ) => number >= 0;
 
 // Refactoring de 'getMajor' para que haga uso de un 'CallBack'
 const getNumber = ( numberList, cb ) => {
@@ -45,6 +46,8 @@ function orderList( numberList, cb ) {
 
 // Endpoint Descending Order
 function descendingOrder( n ) {
+    if( ! isValid( n ) ) return false; 
+
     const numberList = n.toString().split( '' );        // Lista de numeros                  
     const newNumberList = orderList( numberList, isGreaterThan );
     // console.log( numberList );
@@ -55,6 +58,8 @@ function descendingOrder( n ) {
 
 // Endpoint Ascending Order
 function ascendingOrder( n ) {
+    if( ! isValid( n ) ) return false;
+
     const numberList = n.toString().split( '' );        // Lista de numeros   
     const newNumberList = orderList( numberList, isLessThan );
     // console.log( numberList );
