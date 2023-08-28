@@ -19,7 +19,7 @@ const getNumber = ( numberList, cb ) => {
         if( cb( sample, numberList[ i ] ) )
             sample = numberList[ i ];
 
-    console.log( `${ sample } - ${ numberList.join( '' ) }` );
+    // console.log( `${ sample } - ${ numberList.join( '' ) }` );
 
     return sample;
 }
@@ -27,15 +27,52 @@ const getNumber = ( numberList, cb ) => {
 // Endpoint Descending Order
 function descendingOrder( n ) {
     const numberList = n.toString().split( '' );        // Lista de numeros                  
+    const newNumberList = [];
 
-    return getNumber( numberList, isGreaterThan );
+    // Itera mientras existan valores en la lista original
+    while ( numberList.length > 0 ) {
+
+        const major = getNumber( numberList, isGreaterThan );
+
+
+        // Agrega el valor a la nueva lista
+        newNumberList.push( major );
+
+        const index = numberList.indexOf( major );
+
+        // Elimina valor en el indice indicado, solo si el index es un valor positivo
+        if ( index > -1 )
+            numberList.splice( index, 1 ); 
+    }
+    // console.log( numberList );
+    // console.log( newNumberList );
+
+    return newNumberList.join( '' );
 }
 
 // Endpoint Ascending Order
 function ascendingOrder( n ) {
-    const numberList = n.toString().split( '' );        // Lista de numeros                  
+    const numberList = n.toString().split( '' );        // Lista de numeros   
+    const newNumberList = [];
 
-    return getNumber( numberList, isLessThan )
+    // Itera mientras existan valores en la lista original
+    while ( numberList.length > 0 ) {
+
+        const minor = getNumber( numberList, isLessThan );
+
+        // Agrega el valor a la nueva lista
+        newNumberList.push( minor );
+
+        const index = numberList.indexOf( minor );
+
+        // Elimina valor en el indice indicado, solo si el index es un valor positivo
+        if ( index > -1 )
+            numberList.splice( index, 1 ); 
+    }
+    // console.log( numberList );
+    // console.log( newNumberList );
+
+    return newNumberList.join( '' );               
 }
 
 // Implementacion
@@ -47,10 +84,12 @@ const numberList = [
 
 console.log( '# Mayor del string' );
 numberList.forEach( number => {
-    descendingOrder( number );
+    const stringResult = descendingOrder( number );
+    console.log( stringResult );
 });
 
 console.log( '# Menor del string' );
 numberList.forEach( number => {
-    ascendingOrder( number );
+    const stringResult = ascendingOrder( number );
+    console.log( stringResult );
 });
