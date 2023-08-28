@@ -24,26 +24,29 @@ const getNumber = ( numberList, cb ) => {
     return sample;
 }
 
-// Endpoint Descending Order
-function descendingOrder( n ) {
-    const numberList = n.toString().split( '' );        // Lista de numeros                  
+function orderList( numberList, cb ) {
     const newNumberList = [];
 
     // Itera mientras existan valores en la lista original
     while ( numberList.length > 0 ) {
+        const value = getNumber( numberList, cb );  // Obtiene el mayor o el menor de acuerdo al callback que se ha pasado
 
-        const major = getNumber( numberList, isGreaterThan );
-
-
-        // Agrega el valor a la nueva lista
-        newNumberList.push( major );
-
-        const index = numberList.indexOf( major );
+        newNumberList.push( value );                // Agrega el valor a la nueva lista
+        const index = numberList.indexOf( value );  // Obtiene posicion del (mayor o menor) de la lista de numeros dados
 
         // Elimina valor en el indice indicado, solo si el index es un valor positivo
         if ( index > -1 )
             numberList.splice( index, 1 ); 
+
     }
+
+    return newNumberList;
+}
+
+// Endpoint Descending Order
+function descendingOrder( n ) {
+    const numberList = n.toString().split( '' );        // Lista de numeros                  
+    const newNumberList = orderList( numberList, isGreaterThan );
     // console.log( numberList );
     // console.log( newNumberList );
 
@@ -53,22 +56,7 @@ function descendingOrder( n ) {
 // Endpoint Ascending Order
 function ascendingOrder( n ) {
     const numberList = n.toString().split( '' );        // Lista de numeros   
-    const newNumberList = [];
-
-    // Itera mientras existan valores en la lista original
-    while ( numberList.length > 0 ) {
-
-        const minor = getNumber( numberList, isLessThan );
-
-        // Agrega el valor a la nueva lista
-        newNumberList.push( minor );
-
-        const index = numberList.indexOf( minor );
-
-        // Elimina valor en el indice indicado, solo si el index es un valor positivo
-        if ( index > -1 )
-            numberList.splice( index, 1 ); 
-    }
+    const newNumberList = orderList( numberList, isLessThan );
     // console.log( numberList );
     // console.log( newNumberList );
 
