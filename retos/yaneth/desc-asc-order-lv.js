@@ -71,7 +71,7 @@ function ascendingOrder( n ) {
 // Implementacion
 const numberList = [ 
     42145, 
-    145263, 
+    -145263, 
     123456789 
 ];
 
